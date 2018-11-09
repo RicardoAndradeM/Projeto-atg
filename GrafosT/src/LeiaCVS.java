@@ -7,6 +7,8 @@ import java.io.IOException;
 
 public class LeiaCVS {
 
+	String[] dados;
+	
   public static void main(String[] args) {
 
     LeiaCVS obj = new LeiaCVS();
@@ -25,7 +27,7 @@ public class LeiaCVS {
         br = new BufferedReader(new FileReader(arquivoCSV));
         while ((linha = br.readLine()) != null) {
 
-            String[] dados = linha.split(csvDivisor);
+            dados = linha.split(csvDivisor);
             
             System.out.println("Time Blue:" + dados[1] + "	| " + "Time Red:" + dados[2]);
             System.out.println("Ban 1 Blue:" + dados[4] + " | " + "Ban 1 Red:" + dados[5] 
@@ -56,5 +58,12 @@ public class LeiaCVS {
         }
     }
   }
+  
+  public String[] getDados() {
+	  return this.dados;
+  }
+  
+  
+  
 
 }
