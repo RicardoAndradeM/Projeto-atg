@@ -32,7 +32,13 @@ public class LeiaCVS {
             		+ " | " + "Ban 3 Blue:" + jogo[8] + " | " + "Ban 3 Red:" + jogo[9] 
             		+ " | " + "Ban 4 Blue: " + jogo[17] + " | " + "Ban 4 Red:  " + jogo[16]
             		+ " | " + "Ban 5 Blue: " + jogo[19] + " | " + "Ban 5 Red:  " + jogo[18]);
-
+            
+            System.out.println("Pick 1 Blue:" + jogo[10] + " | " + "Pick 1 Red:" + jogo[11] 
+            		+ " | " + "Pick 2 Blue:" + jogo[12] + " | " + "Pick 2 Red:" + jogo[13] 
+            		+ " | " + "Pick 3 Blue:" + jogo[14] + " | " + "Pick 3 Red:" + jogo[15] 
+            		+ " | " + "Pick 4 Blue: " + jogo[21] + " | " + "Pick 4 Red:  " + jogo[20]
+            		+ " | " + "Pick 5 Blue: " + jogo[23] + " | " + "Pick 5 Red:  " + jogo[22]);
+            System.out.println();
         }
 
     } catch (FileNotFoundException e) {
