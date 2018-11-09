@@ -70,7 +70,7 @@ public class Mainstream {
   
   //Pegando informações do CSV e Arquivando
   public void run() {
-
+	  //é necessário mudar o local do csv para poder gerar, para \data\ALL_Games.csv
     String arquivoCSV = "C:\\Users\\Jonas\\Documents\\ALL_Games.csv";
     BufferedReader br = null;
     String linha = "";
