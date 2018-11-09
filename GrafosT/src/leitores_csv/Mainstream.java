@@ -38,7 +38,7 @@ public class Mainstream {
   }
   
   public void adicionandoVertice(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> grafo, ArrayList<ArrayList<String>> dados) { 
-	  
+	  //começa a partir do indice 2 pelo motivo que as duas primeiras linhas são os nomes das colunas
 	  for(int i=2;i<dados.size();i++) {
 		  for(int j=0;j<dados.get(i).size();j++) {
 			  String vertice = dados.get(i).get(j);
@@ -48,12 +48,10 @@ public class Mainstream {
 			  }
 		  }
 	  }
-	  
-	  
   }
   
   public void adicionandoAresta(SimpleDirectedWeightedGraph<String,DefaultWeightedEdge> grafo, ArrayList<ArrayList<String>> dados) {
-	  
+	  //começa a partir do indice 2 pelo motivo que as duas primeiras linhas são os nomes das colunas
 	  for(int i=2;i<dados.size();i++) {
 		  for(int j=0;j<dados.get(i).size()-1;j++) {
 			  String vertice = dados.get(i).get(j);
@@ -71,11 +69,6 @@ public class Mainstream {
   }
   
   //Pegando informações do CSV e Arquivando
-  public ArrayList<ArrayList<String>> getDados() {
-	  return this.dadosGerais;
-  }
-  
-
   public void run() {
 
     String arquivoCSV = "C:\\Users\\Jonas\\Documents\\ALL_Games.csv";
