@@ -25,19 +25,20 @@ public class LeiaCVS {
         br = new BufferedReader(new FileReader(arquivoCSV));
         while ((linha = br.readLine()) != null) {
 
-            String[] jogo = linha.split(csvDivisor);
-
-            System.out.println("Ban 1 Blue:" + jogo[4] + " | " + "Ban 1 Red:" + jogo[5] 
-            		+ " | " + "Ban 2 Blue:" + jogo[6] + " | " + "Ban 2 Red:" + jogo[7] 
-            		+ " | " + "Ban 3 Blue:" + jogo[8] + " | " + "Ban 3 Red:" + jogo[9] 
-            		+ " | " + "Ban 4 Blue: " + jogo[17] + " | " + "Ban 4 Red:  " + jogo[16]
-            		+ " | " + "Ban 5 Blue: " + jogo[19] + " | " + "Ban 5 Red:  " + jogo[18]);
+            String[] dados = linha.split(csvDivisor);
             
-            System.out.println("Pick 1 Blue:" + jogo[10] + " | " + "Pick 1 Red:" + jogo[11] 
-            		+ " | " + "Pick 2 Blue:" + jogo[12] + " | " + "Pick 2 Red:" + jogo[13] 
-            		+ " | " + "Pick 3 Blue:" + jogo[14] + " | " + "Pick 3 Red:" + jogo[15] 
-            		+ " | " + "Pick 4 Blue: " + jogo[21] + " | " + "Pick 4 Red:  " + jogo[20]
-            		+ " | " + "Pick 5 Blue: " + jogo[23] + " | " + "Pick 5 Red:  " + jogo[22]);
+            System.out.println("Time Blue:" + dados[1] + "	| " + "Time Red:" + dados[2]);
+            System.out.println("Ban 1 Blue:" + dados[4] + " | " + "Ban 1 Red:" + dados[5] 
+            		+ " | " + "Ban 2 Blue:" + dados[6] + " | " + "Ban 2 Red:" + dados[7] 
+            		+ " | " + "Ban 3 Blue:" + dados[8] + " | " + "Ban 3 Red:" + dados[9] 
+            		+ " | " + "Ban 4 Blue: " + dados[17] + " | " + "Ban 4 Red:  " + dados[16]
+            		+ " | " + "Ban 5 Blue: " + dados[19] + " | " + "Ban 5 Red:  " + dados[18]);
+            
+            System.out.println("Pick 1 Blue:" + dados[10] + " | " + "Pick 1 Red:" + dados[11] 
+            		+ " | " + "Pick 2 Blue:" + dados[12] + " | " + "Pick 2 Red:" + dados[13] 
+            		+ " | " + "Pick 3 Blue:" + dados[14] + " | " + "Pick 3 Red:" + dados[15] 
+            		+ " | " + "Pick 4 Blue: " + dados[21] + " | " + "Pick 4 Red:  " + dados[20]
+            		+ " | " + "Pick 5 Blue: " + dados[23] + " | " + "Pick 5 Red:  " + dados[22]);
             System.out.println();
         }
 
