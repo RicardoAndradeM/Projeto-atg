@@ -33,13 +33,18 @@ public class Mainstream {
     obj.adicionandoAresta(grafoPick, obj.dadosPicks);
  
     System.out.println(grafoBan);
+    System.out.println("---------------------------------------------------------------------");
     System.out.println(grafoPick);
-    
+   
+    for(DefaultWeightedEdge e : grafoBan.edgeSet()){
+        System.out.println(grafoBan.getEdgeSource(e) + " | " + grafoBan.getEdgeWeight(e) + " | " 
+        					+ " --> " + grafoBan.getEdgeTarget(e));
+    }    
   }
   
   public void adicionandoVertice(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> grafo, ArrayList<ArrayList<String>> dados) { 
 	  //começa a partir do indice 2 pelo motivo que as duas primeiras linhas são os nomes das colunas
-	  for(int i=2;i<dados.size();i++) {
+	  for(int i=0;i<5;i++) {
 		  for(int j=0;j<dados.get(i).size();j++) {
 			  String vertice = dados.get(i).get(j);
 			  
@@ -52,7 +57,7 @@ public class Mainstream {
   
   public void adicionandoAresta(SimpleDirectedWeightedGraph<String,DefaultWeightedEdge> grafo, ArrayList<ArrayList<String>> dados) {
 	  //começa a partir do indice 2 pelo motivo que as duas primeiras linhas são os nomes das colunas
-	  for(int i=2;i<dados.size();i++) {
+	  for(int i=0;i<5;i++) {
 		  for(int j=0;j<dados.get(i).size()-1;j++) {
 			  String vertice = dados.get(i).get(j);
 			  String verticePosterior = dados.get(i).get(j+1);
@@ -87,15 +92,15 @@ public class Mainstream {
             ArrayList<String> BansRed = new ArrayList<>();
         
             picksBlue.add(0, dados[10].trim());
-            picksBlue.add(1, dados[12].trim());
+            picksBlue.add(1, dados[13].trim());
             picksBlue.add(2, dados[14].trim());
             picksBlue.add(3, dados[21].trim());
-            picksBlue.add(4, dados[23].trim());
+            picksBlue.add(4, dados[22].trim());
             picksRed.add(0, dados[11].trim());
-            picksRed.add(1, dados[13].trim());
+            picksRed.add(1, dados[12].trim());
             picksRed.add(2, dados[15].trim());
             picksRed.add(3, dados[20].trim());
-            picksRed.add(4, dados[22].trim());
+            picksRed.add(4, dados[23].trim());
             
             BansBlue.add(0, dados[4].trim());
             BansBlue.add(1, dados[6].trim());
