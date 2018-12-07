@@ -10,10 +10,14 @@ import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 public class MainStream {
 
-	
-	ArrayList<ArrayList<String>> dadosGerais = new ArrayList<ArrayList<String>>();
-	ArrayList<ArrayList<String>> dadosBans = new ArrayList<ArrayList<String>>();
-	ArrayList<ArrayList<String>> dadosPicks = new ArrayList<ArrayList<String>>();
+	private static ArrayList<ArrayList<String>> dadosGerais = new ArrayList<ArrayList<String>>();
+	private ArrayList<ArrayList<String>> dadosBans = new ArrayList<ArrayList<String>>();
+	private ArrayList<ArrayList<String>> dadosPicks = new ArrayList<ArrayList<String>>();
+
+	private static final int INDICE_BANS_BLUE = 0;
+	private static final int INDICE_BANS_RED = 1;
+	private static final int INDICE_PICKS_BLUE = 2;
+	private static final int INDICE_PICKS_RED = 3;
 
 	public static void main(String[] args) {
 
@@ -32,22 +36,123 @@ public class MainStream {
 		obj.adicionandoVertice(grafoPick, obj.dadosPicks);
 		obj.adicionandoAresta(grafoPick, obj.dadosPicks);
 
+		System.out.println("* GRAFO DE BANS:");
+		System.out.println();
 		System.out.println(grafoBan);
-		System.out.println("---------------------------------------------------------------------");
-		System.out.println(grafoPick);
 
-		for (DefaultWeightedEdge e : grafoBan.edgeSet()) {
-			System.out.println(grafoBan.getEdgeSource(e) + " | " + grafoBan.getEdgeWeight(e) + " | " + " --> "
-					+ grafoBan.getEdgeTarget(e));
+		System.out.println("---------------------------------------------------------------------");
+		System.out.println();
+		System.out.println("* GRAFO DE PICKS:");
+		System.out.println();
+		System.out.println(grafoPick);
+		System.out.println();
+
+		System.out.println("********** ARESTAS COM PESOS DO GRAFO DE BANS **********");
+		System.out.println();
+		imprimeArestasGrafo(grafoBan);
+		System.out.println();
+
+		System.out.println("Melhor Composicao:");
+		System.out.println(imprimeMelhorComposicao(grafoBan));
+		System.out.println("Valor da soma das arestas da melhor composicao:");
+		System.out.println(imprimeMaiorSomaArestas(grafoBan));
+
+		/*
+		System.out.println("********** ARESTAS COM PESOS DO GRAFO DE PICKS **********");
+		System.out.println();
+		imprimeArestasGrafo(grafoPick);
+		System.out.println();
+		
+		System.out.println("Melhor Composicao:");
+		System.out.println(imprimeMelhorComposicao(grafoPick));
+		System.out.println("Valor da soma das arestas da melhor composicao:");
+		System.out.println(imprimeMaiorSomaArestas(grafoPick));
+		*/
+
+	}
+
+	public static void imprimeArestasGrafo(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> grafo) {
+		float aux = 1;
+		for (DefaultWeightedEdge e : grafo.edgeSet()) {
+			System.out.println(
+					grafo.getEdgeSource(e) + " | " + grafo.getEdgeWeight(e) + " | " + " --> " + grafo.getEdgeTarget(e));
+			if (aux % 4 == 0)
+				System.out.println("##########################");
+			aux++;
 		}
+	}
+
+	public static ArrayList<String> imprimeMelhorComposicao(
+			SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> grafo) {
+		int indice = 1;
+		float maiorSoma = 0;
+
+		ArrayList<String> melhorComposicao = null;
+		ArrayList<String> aux = new ArrayList<>();
+
+		for (DefaultWeightedEdge e : grafo.edgeSet()) {
+			float contador = 0;
+			contador += grafo.getEdgeWeight(e);
+
+			// Vou adicionando os elementos num array auxiliar...
+			aux.add(grafo.getEdgeSource(e));
+
+			if (indice % 4 == 0 && contador > maiorSoma) {
+				aux.add(grafo.getEdgeTarget(e)); // Adiciona o quinto heroi...
+				maiorSoma = contador;
+				contador = 0;
+
+				// Se eu entrei aqui, os cinco ultimos adicionados sao os melhores...
+				melhorComposicao = new ArrayList<>();
+
+				for (int i = aux.size() - 1; i >= aux.size() - 5; i--) {
+					melhorComposicao.add(aux.get(i));
+				}
+
+			}
+			indice++;
+		}
+		return melhorComposicao;
+	}
+
+	public static float imprimeMaiorSomaArestas(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> grafo) {
+		int indice = 1;
+		float maiorSoma = 0;
+
+		ArrayList<String> melhorComposicao = null;
+		ArrayList<String> aux = new ArrayList<>();
+
+		for (DefaultWeightedEdge e : grafo.edgeSet()) {
+			float contador = 0;
+			contador += grafo.getEdgeWeight(e);
+
+			// Vou adicionando os elementos num array auxiliar...
+			aux.add(grafo.getEdgeSource(e));
+
+			if (indice % 4 == 0 && contador > maiorSoma) {
+				aux.add(grafo.getEdgeTarget(e)); // Adiciona o quinto heroi...
+				maiorSoma = contador;
+				contador = 0;
+
+				// Se eu entrei aqui, os cinco ultimos adicionados sao os melhores...
+				melhorComposicao = new ArrayList<>();
+
+				for (int i = aux.size() - 1; i >= aux.size() - 5; i--) {
+					melhorComposicao.add(aux.get(i));
+				}
+
+			}
+			indice++;
+		}
+		return maiorSoma;
 	}
 
 	public void adicionandoVertice(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> grafo,
 			ArrayList<ArrayList<String>> dados) {
-		
+
 		// começa a partir do indice 2 pelo motivo que as duas primeiras linhas são os
 		// nomes das colunas
-		
+
 		for (int i = 2; i < dados.size(); i++) {
 			for (int j = 0; j < dados.get(i).size(); j++) {
 				String vertice = dados.get(i).get(j);
@@ -61,10 +166,10 @@ public class MainStream {
 
 	public void adicionandoAresta(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> grafo,
 			ArrayList<ArrayList<String>> dados) {
-		
+
 		// começa a partir do indice 2 pelo motivo que as duas primeiras linhas são os
 		// nomes das colunas
-		
+
 		for (int i = 2; i < dados.size(); i++) {
 			for (int j = 0; j < dados.get(i).size() - 1; j++) {
 				String vertice = dados.get(i).get(j);
@@ -82,14 +187,14 @@ public class MainStream {
 	}
 
 	// Pegando informações do CSV e Arquivando
-	
+
 	public void run() {
-		
+
 		String arquivoCSV = "data/ALL_Games.csv";
 		BufferedReader br = null;
 		String linha = "";
 		String csvDivisor = ",";
-		
+
 		try {
 
 			br = new BufferedReader(new FileReader(arquivoCSV));
