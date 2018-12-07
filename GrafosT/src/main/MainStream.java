@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import org.jgrapht.graph.AbstractBaseGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
@@ -61,9 +62,11 @@ public class MainStream {
 		System.out.println("Valor da soma das arestas da melhor composicao:");
 		System.out.println(imprimeMaiorSomaArestas(grafoBan));
 		
-		imprimePrioridade(getPreferenciaDraft(grafoBan));
+		//imprimePrioridadeLegado(getPreferenciaDraft(grafoBan));
 		
 		imprimeAfinidade(grafoPick);
+		
+		imprimePrioridade(grafoBan);
 
 		/*
 		System.out.println("********** ARESTAS COM PESOS DO GRAFO DE PICKS **********");
@@ -79,6 +82,32 @@ public class MainStream {
 
 	}
 
+	private static void imprimePrioridade(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> grafoBan) {
+		HashMap<Integer, String> prioridade = new HashMap<>();
+		for (String vertice : grafoBan.vertexSet()) {
+			int soma = 0;
+			for (DefaultWeightedEdge aresta : grafoBan.edgesOf(vertice)) {
+				soma += (int) grafoBan.getEdgeWeight(aresta);
+			}
+			if(prioridade.containsKey(soma)) {
+				String valorAntigo = prioridade.get(soma);
+				prioridade.put(soma, valorAntigo + ", " + vertice);
+			} else {
+				prioridade.put(soma, vertice);
+			}
+		}
+		int[] chaves = new int[prioridade.keySet().size()];
+		int contador = 0;
+		for (Integer i : prioridade.keySet()) {
+			chaves[contador++] = i;
+		}
+		Arrays.sort(chaves);
+		System.out.print("\nLista de prioridade de Herois: ");
+		for (int i : chaves) {
+			System.out.printf("\nHerois com %d de pioridade: %s", i, prioridade.get(i));
+		}
+	}
+
 	private static void imprimeAfinidade(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> grafoPick) {
 		DefaultWeightedEdge maiorAresta = null;
 		for (DefaultWeightedEdge aresta : grafoPick.edgeSet()) {
@@ -89,11 +118,11 @@ public class MainStream {
 			}
 		}
 		System.out.println("\nCampeoes que aparecem juntos com mais frequencia:");
-		System.out.printf("[%s %.0f-> %s]",grafoPick.getEdgeSource(maiorAresta),
+		System.out.printf("[%s %.0f-> %s]\n",grafoPick.getEdgeSource(maiorAresta),
 				grafoPick.getEdgeWeight(maiorAresta),grafoPick.getEdgeTarget(maiorAresta));
 	}
 
-	private static void imprimePrioridade(ArrayList preferenciaDraft) {
+	private static void imprimePrioridadeLegado(ArrayList preferenciaDraft) {
 		System.out.println("\nCampeoes e seus prioridades:");
 		HashMap<String, Integer> prioridades = new HashMap<>();
 		for (int i = 1; i < preferenciaDraft.size(); i += 2) {
