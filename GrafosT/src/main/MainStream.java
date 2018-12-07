@@ -80,8 +80,17 @@ public class MainStream {
 	}
 
 	private static void imprimeAfinidade(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> grafoPick) {
+		DefaultWeightedEdge maiorAresta = null;
 		for (DefaultWeightedEdge aresta : grafoPick.edgeSet()) {
+			if(maiorAresta == null) {
+				maiorAresta = aresta;
+			} else if (grafoPick.getEdgeWeight(aresta) > grafoPick.getEdgeWeight(maiorAresta)) {
+				maiorAresta = aresta;
+			}
 		}
+		System.out.println("\nCampeoes que aparecem juntos com mais frequencia:");
+		System.out.printf("[%s %.0f-> %s]",grafoPick.getEdgeSource(maiorAresta),
+				grafoPick.getEdgeWeight(maiorAresta),grafoPick.getEdgeTarget(maiorAresta));
 	}
 
 	private static void imprimePrioridade(ArrayList preferenciaDraft) {
