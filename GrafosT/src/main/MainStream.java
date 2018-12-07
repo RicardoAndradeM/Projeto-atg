@@ -58,8 +58,7 @@ public class MainStream {
 		imprimeAfinidade(grafoPick);
 		
 		imprimePrioridade(grafoBan);
-
-		/*
+		
 		System.out.println("********** ARESTAS COM PESOS DO GRAFO DE PICKS **********");
 		System.out.println();
 		imprimeArestasGrafo(grafoPick);
@@ -69,7 +68,7 @@ public class MainStream {
 		System.out.println(imprimeMelhorComposicao(grafoPick));
 		System.out.println("Valor da soma das arestas da melhor composicao:");
 		System.out.println(imprimeMaiorSomaArestas(grafoPick));
-		*/
+		
 
 	}
 
