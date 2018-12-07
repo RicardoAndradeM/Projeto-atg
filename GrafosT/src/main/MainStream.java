@@ -4,12 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import org.jgrapht.graph.AbstractBaseGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
@@ -18,11 +16,6 @@ public class MainStream {
 	private static ArrayList<ArrayList<String>> dadosGerais = new ArrayList<ArrayList<String>>();
 	private ArrayList<ArrayList<String>> dadosBans = new ArrayList<ArrayList<String>>();
 	private ArrayList<ArrayList<String>> dadosPicks = new ArrayList<ArrayList<String>>();
-
-	private static final int INDICE_BANS_BLUE = 0;
-	private static final int INDICE_BANS_RED = 1;
-	private static final int INDICE_PICKS_BLUE = 2;
-	private static final int INDICE_PICKS_RED = 3;
 
 	public static void main(String[] args) {
 
@@ -61,8 +54,6 @@ public class MainStream {
 		System.out.println(imprimeMelhorComposicao(grafoBan));
 		System.out.println("Valor da soma das arestas da melhor composicao:");
 		System.out.println(imprimeMaiorSomaArestas(grafoBan));
-		
-		//imprimePrioridadeLegado(getPreferenciaDraft(grafoBan));
 		
 		imprimeAfinidade(grafoPick);
 		
@@ -120,16 +111,6 @@ public class MainStream {
 		System.out.println("\nCampeoes que aparecem juntos com mais frequencia:");
 		System.out.printf("[%s %.0f-> %s]\n",grafoPick.getEdgeSource(maiorAresta),
 				grafoPick.getEdgeWeight(maiorAresta),grafoPick.getEdgeTarget(maiorAresta));
-	}
-
-	private static void imprimePrioridadeLegado(ArrayList preferenciaDraft) {
-		System.out.println("\nCampeoes e seus prioridades:");
-		HashMap<String, Integer> prioridades = new HashMap<>();
-		for (int i = 1; i < preferenciaDraft.size(); i += 2) {
-			prioridades.put((String) preferenciaDraft.get(i), (Integer) preferenciaDraft.get(i-1));
-		}
-		
-		System.out.println(prioridades.toString().replaceAll(",", "\n"));
 	}
 
 	public static void imprimeArestasGrafo(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> grafo) {
@@ -211,7 +192,7 @@ public class MainStream {
 	public void adicionandoVertice(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> grafo,
 			ArrayList<ArrayList<String>> dados) {
 
-		// come�a a partir do indice 2 pelo motivo que as duas primeiras linhas s�o os
+		// Comeca a partir do indice 2 pelo motivo que as duas primeiras linhas s�o os
 		// nomes das colunas
 
 		for (int i = 2; i < dados.size(); i++) {
@@ -228,7 +209,7 @@ public class MainStream {
 	public void adicionandoAresta(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> grafo,
 			ArrayList<ArrayList<String>> dados) {
 
-		// come�a a partir do indice 2 pelo motivo que as duas primeiras linhas s�o os
+		// Comeca a partir do indice 2 pelo motivo que as duas primeiras linhas sao os
 		// nomes das colunas
 
 		for (int i = 2; i < dados.size(); i++) {
@@ -247,7 +228,7 @@ public class MainStream {
 
 	}
 
-	// Pegando informa��es do CSV e Arquivando
+	// Pegando informacoes do CSV e Arquivando
 
 	public void run() {
 
@@ -313,42 +294,5 @@ public class MainStream {
 				}
 			}
 		}
-	}
-	public static ArrayList getPreferenciaDraft(ArrayList<ArrayList<String>> dadosPicks, SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> grafoPick) {
-		ArrayList preferencia = new ArrayList();
-		int maiorGrau = 0;
-		String campeao = "";
-		
-		for (int i = 2; i < dadosPicks.size(); i++) {
-	    	for (int j = 0; j < dadosPicks.get(i).size(); j++) {
-				if (grafoPick.degreeOf(dadosPicks.get(i).get(j)) > maiorGrau) {
-					campeao = dadosPicks.get(i).get(j) ;
-					maiorGrau = grafoPick.degreeOf(dadosPicks.get(i).get(j));
-				}
-			}
-	    	preferencia.add(0, maiorGrau);
-			preferencia.add(1, campeao);
-		}
-		return preferencia;
-	}
-	
-	// Pega os personagens do grafo
-	public static ArrayList getPreferenciaDraft(SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> grafoPick) {
-		int maiorGrau = 0;
-		String campeao = "";
-		ArrayList preferencia = new ArrayList();
-		
-		for (DefaultWeightedEdge e : grafoPick.edgeSet()) {
-			if (grafoPick.degreeOf(grafoPick.getEdgeSource(e)) > grafoPick.degreeOf(grafoPick.getEdgeTarget(e))) {
-				maiorGrau = grafoPick.degreeOf(grafoPick.getEdgeSource(e));
-				campeao = grafoPick.getEdgeSource(e);
-			} else {
-				maiorGrau = grafoPick.degreeOf(grafoPick.getEdgeTarget(e));
-				campeao = grafoPick.getEdgeTarget(e);
-			}
-			preferencia.add(0, maiorGrau);
-			preferencia.add(1, campeao);
-		}
-		return preferencia;
 	}
 }
